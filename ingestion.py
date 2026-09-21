@@ -26,7 +26,7 @@ doc_splits = text_splitter.split_documents(docs_list)
 
 embeddings = OpenAIEmbeddings(
     model="bge-large-en-v1.5-f32.gguf",
-    base_url="http://192.168.1.190:8081/v1",
+    base_url="http://192.168.1.190:8082/v1",
     api_key="not-needed",
     # By default, OpenAIEmbeddings tries to use tiktoken to count/truncate
     # tokens the way OpenAI's real embedding models expect — but llama-server's
