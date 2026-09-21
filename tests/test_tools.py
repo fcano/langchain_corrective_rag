@@ -1,5 +1,5 @@
 from ingestion import retriever
-from tools import grader_chain, question_answer_chain
+from tools import grader_chain, question_answer_chain, hallucination_grader_chain
 from pprint import pprint
 
 
@@ -38,3 +38,25 @@ def test_question_answer_chain() -> None:
     docs = retriever.invoke(question)
     answer = question_answer_chain.invoke({"context": docs, "question": question})
     pprint(answer)
+
+
+def test_hallucination_grader_chain_answer_yes() -> None:
+    question = "Does Red Hat secure development lifecycle aligns with NIST?"
+    docs = retriever.invoke(question)
+    answer = question_answer_chain.invoke({"context": docs, "question": question})
+    result = hallucination_grader_chain.invoke(
+        {"documents": docs, "answer": answer}
+    )
+
+    assert result.binary_score
+
+
+def test_hallucination_grader_chain_answer_no() -> None:
+    question = "Does Red Hat secure development lifecycle aligns with NIST?"
+    docs = retriever.invoke(question)
+    answer = question_answer_chain.invoke({"context": docs, "question": question})
+    result = hallucination_grader_chain.invoke(
+        {"documents": docs, "answer": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec blandit risus et arcu semper porttitor id et ligula. Aenean tincidunt nunc ipsum, non faucibus elit porttitor maximus."}
+    )
+
+    assert not result.binary_score
