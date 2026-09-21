@@ -35,9 +35,7 @@ system_prompt = """
 grader_prompt_template = ChatPromptTemplate.from_messages(
     [
         ("system", system_prompt),
-        HumanMessage(
-            content="Retrieved document: \n\n {document} \n\n User question: \n\n {question}"
-        ),
+        ("human", "Retrieved document: \n\n {document} \n\n User question: \n\n {question}"),
     ]
 )
 

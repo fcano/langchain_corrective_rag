@@ -44,7 +44,7 @@ embeddings = OpenAIEmbeddings(
 # )
 
 retriever = Chroma(
-    collection_name="rag-chroma",
+    collection_name="rag_chroma",
     persist_directory="./.chroma",
     embedding_function=embeddings,
 ).as_retriever()
