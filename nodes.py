@@ -44,10 +44,10 @@ def web_search_node(state: GraphState) -> Dict[str, Any]:
     question = state["question"]
     documents = state["documents"]
 
-    tavily_results = tavily_search_tool({"query": question})
+    tavily_results = tavily_search_tool.invoke({"query": question})
 
-    joined_tavilt_result = "\n".join(
-        [tavily_result["content"] for tavily_result in tavily_results]
+    joined_tavily_result = "\n".join(
+        [tavily_result["content"] for tavily_result in tavily_results["results"]]
     )
 
     web_results = Document(page_content=joined_tavily_result)
