@@ -1,5 +1,6 @@
 from ingestion import retriever
-from tools import grader_chain
+from tools import grader_chain, question_answer_chain
+from pprint import pprint
 
 
 def test_grader_chain_answer_yes() -> None:
@@ -30,3 +31,10 @@ def test_grader_chain_answer_no() -> None:
 
     #print(doc_txt)
     assert doc_is_related.binary_score == "no"
+
+
+def test_question_answer_chain() -> None:
+    question = "Does Red Hat secure development lifecycle aligns with NIST?"
+    docs = retriever.invoke(question)
+    answer = question_answer_chain.invoke({"context": docs, "question": question})
+    pprint(answer)

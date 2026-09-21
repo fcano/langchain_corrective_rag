@@ -7,12 +7,12 @@ class GraphState(TypedDict):
     
     Atttributes:
         question: question
-        generation: LLM generation
+        answer: LLM response
         web_search_ whether to add search
         documents: list of documents
     """
 
     question: str
-    generation: str
+    answer: str
     web_search: bool
     documents: List[str]
